@@ -19,18 +19,18 @@ const request = async () => {
 			.findElement(By.tagName("a"))
 			.getAttribute("href");
 
-		let text = (await video.getText()).split("\n")
+		let text = (await video.getText()).split("\n");
 
 		console.log(text);
 
-		var tube = Youtube.builder()
-			.title(ifNull(text[0]))
-			.views(ifNull(text[1]))
-			.time(ifNull(text[2]))
-			.channel(ifNull(text[3]))
-			.description(ifNull(text[4]))
-			.videoLink(link)
-			.build();
+		var tube = {
+			title: ifNull(text[0]),
+			views: ifNull(text[1]),
+			time: ifNull(text[2]),
+			channel: ifNull(text[3]),
+			description: ifNull(text[4]),
+			videoLink: link,
+		};
 
 		youtubeList.push(tube);
 	}
@@ -38,9 +38,16 @@ const request = async () => {
 		driver.close();
 		driver.quit();
 	}, 10000);
-	console.table(youtubeList);
+	console.log(youtubeList);
 };
 
 request();
 
 // const option = new chrome.Options()
+const ifNull = (s) => {
+	if (s != undefined || null) {
+		return s;
+	} else {
+		return null;
+	}
+};
