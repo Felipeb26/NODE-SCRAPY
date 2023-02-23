@@ -1,0 +1,14 @@
+{
+  "name": "youtube-scrapy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "chromedriver": "^110.0.0",
+    "nodemon": "^2.0.20",
+    "selenium-webdriver": "^4.8.1"
+  }
+}
