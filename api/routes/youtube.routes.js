@@ -8,10 +8,10 @@ routes.get("/request/?:limit/?:query", async (req, res) => {
 	limit = limit.substring(limit.lastIndexOf("=") + 1);
 
 	await request(query, limit)
-		.then((it) => {
+		.then(it => {
 			return res.send(it);
 		})
-		.catch((err) => res.status(400).send({ erro: err }));
+		.catch(err => res.status(400).send({ erro: err }));
 });
 
 routes.get("/", async (req, res) => {

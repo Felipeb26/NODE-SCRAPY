@@ -1,9 +1,12 @@
-const { Builder, By, Key, WebDriver } = require("selenium-webdriver");
-const chrome = require("selenium-webdriver/chrome");
-const chromedriver = require("chromedriver");
+const { Builder, By } = require("selenium-webdriver");
+const { ServiceBuilder } = require("selenium-webdriver/chrome");
+const webdriver = require("selenium-webdriver");
 
 const { ifNull } = require("./facilities");
 const { Youtube } = require("../model/youtube");
+
+const chromeDriver = `${__dirname}\\chromedriver\\chromedriver.exe`;
+const serviceBuilder = new ServiceBuilder(chromeDriver);
 
 const request = async (param, limit) => {
 	try {
@@ -11,6 +14,8 @@ const request = async (param, limit) => {
 
 		const driver = await new Builder()
 			.forBrowser("chrome")
+			.withCapabilities(webdriver.Capabilities.chrome())
+			.setChromeService(serviceBuilder)
 			.setChromeOptions(new chrome.Options().headless())
 			.build();
 
@@ -46,13 +51,14 @@ const request = async (param, limit) => {
 		}
 		console.log(youtubeList);
 
-		if (youtubeList.length > 0) {
+		if (youtubeList.length < 0) {
 			return "ERRO AO FAZER SOLICITACAO";
 		}
 		console.log(youtubeList);
+		driver.close()
 		return youtubeList;
 	} catch (error) {
-		await driver.close();
+		driver.close();
 		console.log("driver fechando\n\n");
 		console.log(error);
 		return error;

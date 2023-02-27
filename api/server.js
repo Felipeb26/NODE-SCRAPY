@@ -12,7 +12,7 @@ app.use(compress());
 app.use(routes);
 
 const server = app.listen(PORT, () => {
-	console.log(`Hos running inside http://localhost:${PORT}`);
+	console.log(`Host running inside http://localhost:${PORT}`);
 });
 
 process.on("SIGINT", () => {
